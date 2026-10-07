@@ -1,0 +1,17 @@
+# Python / Virtual Environment
+env/
+venv/
+*.pyc
+__pycache__/
+
+# Database
+db.sqlite3
+
+# Uploaded Files & Keys
+media/resumes/
+.env
+
+# OS / IDE
+.DS_Store
+.vscode/
+.idea/

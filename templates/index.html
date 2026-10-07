@@ -1,0 +1,74 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smart Factory Jobs</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body data-auth="{% if user.is_authenticated %}1{% else %}0{% endif %}">
+  <header class="top">
+    <a href="{% url 'job-portal' %}" class="brand">🏭 Smart Factory Jobs</a>
+    <nav>
+      {% if user.is_staff %}
+        <a href="{% url 'hr-dashboard' %}">HR Dashboard</a>
+      {% endif %}
+      {% if user.is_authenticated %}
+        <form method="post" action="/api-auth/logout/?next={% url 'job-portal' %}">
+          {% csrf_token %}
+          <button type="submit">Logout ({{ user.username }})</button>
+        </form>
+      {% else %}
+        <a href="{% url 'signup' %}">Sign up</a>
+        <a class="btn" href="/api-auth/login/?next={% url 'job-portal' %}">Login</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <main>
+    <h1>Open positions</h1>
+    <input id="q" type="search" placeholder="Search title, department, location…">
+    <div id="jobs" class="grid"><p class="muted">Loading jobs…</p></div>
+  </main>
+
+  <dialog id="apply-modal">
+    <form id="apply-form" enctype="multipart/form-data">
+      <h2>Apply — <span id="apply-title"></span></h2>
+      <input type="hidden" name="job_id" id="job-id">
+      <label>Phone number
+        <input name="phone_number" type="tel" placeholder="03xx-xxxxxxx" required>
+      </label>
+      <label>Address
+        <textarea name="address" rows="2" required></textarea>
+      </label>
+      <label>Preferred shift
+        <select name="preferred_shift">
+          <option value="any">Any</option>
+          <option value="day">Day</option>
+          <option value="night">Night</option>
+          <option value="rotating">Rotating</option>
+        </select>
+      </label>
+      <label>Years of experience
+        <input name="experience_years" type="number" min="0" value="0">
+      </label>
+      <label>Certifications (optional)
+        <textarea name="certifications" rows="2" placeholder="e.g. Forklift license, OSHA safety"></textarea>
+      </label>
+      <label>Upload CV / Resume (optional)
+        <input name="resume" type="file" accept=".pdf,.doc,.docx">
+        <span class="muted">PDF or Word, max 5MB.</span>
+      </label>
+      <p id="form-msg" class="err"></p>
+      <div class="row">
+        <button type="submit" class="primary">Submit application</button>
+        <button type="button" onclick="this.closest('dialog').close()">Cancel</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast"></div>
+  <script src="{% static 'js/common.js' %}"></script>
+  <script src="{% static 'js/jobs.js' %}"></script>
+</body>
+</html>

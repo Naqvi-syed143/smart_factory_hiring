@@ -1,0 +1,53 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign Up | Smart Factory Jobs</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <header class="top">
+    <a href="{% url 'job-portal' %}" class="brand">🏭 Smart Factory Jobs</a>
+    <nav><a href="/api-auth/login/">Login instead</a></nav>
+  </header>
+
+  <main style="max-width:460px">
+    <h1>Create your candidate account</h1>
+    <p class="muted">Sign up to apply for jobs and track your application status. This always creates a candidate account — HR/staff access is granted separately by an administrator.</p>
+
+    <form method="post" class="card" novalidate>
+      {% csrf_token %}
+      {% if form.non_field_errors %}<p class="err">{{ form.non_field_errors|join:" " }}</p>{% endif %}
+
+      <label>Username
+        {{ form.username }}
+        {% if form.username.errors %}<span class="err">{{ form.username.errors|join:" " }}</span>{% endif %}
+      </label>
+      <div class="cols">
+        <label>First name
+          {{ form.first_name }}
+          {% if form.first_name.errors %}<span class="err">{{ form.first_name.errors|join:" " }}</span>{% endif %}
+        </label>
+        <label>Last name
+          {{ form.last_name }}
+        </label>
+      </div>
+      <label>Email
+        {{ form.email }}
+        {% if form.email.errors %}<span class="err">{{ form.email.errors|join:" " }}</span>{% endif %}
+      </label>
+      <label>Password
+        {{ form.password1 }}
+        {% if form.password1.errors %}<span class="err">{{ form.password1.errors|join:" " }}</span>{% endif %}
+      </label>
+      <label>Confirm password
+        {{ form.password2 }}
+        {% if form.password2.errors %}<span class="err">{{ form.password2.errors|join:" " }}</span>{% endif %}
+      </label>
+
+      <button type="submit" class="primary" style="width:100%">Create account</button>
+    </form>
+  </main>
+</body>
+</html>

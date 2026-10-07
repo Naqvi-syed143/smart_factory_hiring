@@ -1,0 +1,184 @@
+/* ---------- Design tokens ---------- */
+:root {
+  --bg: #f3f5f8;
+  --surface: #ffffff;
+  --ink: #16202b;
+  --muted: #64748b;
+  --line: #e2e8f0;
+  --brand: #0b6bcb;
+  --brand-dark: #084f96;
+  --ok: #157f4a;
+  --ok-bg: #e3f6ec;
+  --bad: #c2372b;
+  --bad-bg: #fbe7e5;
+  --warn-bg: #fff4e0;
+  --warn: #a15c00;
+  --radius: 12px;
+  --shadow: 0 1px 2px rgba(16, 24, 40, .06), 0 1px 3px rgba(16, 24, 40, .1);
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.45;
+}
+
+a { color: var(--brand); text-decoration: none; }
+
+/* ---------- Header ---------- */
+header.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  padding: 14px 18px;
+  background: linear-gradient(135deg, #0d2136, #103252);
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+header.top .brand { color: #fff; font-weight: 700; font-size: 1.1rem; letter-spacing: .2px; }
+header.top nav { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+header.top nav a, header.top nav button {
+  color: #dbe6f2; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+  padding: 7px 12px; border-radius: 8px; font-size: .88rem; cursor: pointer;
+}
+header.top nav a.btn { background: var(--brand); border-color: var(--brand); color: #fff; font-weight: 600; }
+header.top nav a:hover, header.top nav button:hover { background: rgba(255,255,255,.18); }
+header.top form { margin: 0; }
+
+/* ---------- Layout ---------- */
+main { max-width: 1080px; margin: 0 auto; padding: 18px 16px 48px; }
+h1 { font-size: 1.4rem; margin: 4px 0 16px; }
+
+/* ---------- Buttons / inputs (shared) ---------- */
+button {
+  font: inherit; padding: 9px 14px; border: 1px solid var(--line);
+  border-radius: 8px; background: #fff; cursor: pointer; color: var(--ink);
+}
+button.primary { background: var(--brand); border-color: var(--brand); color: #fff; font-weight: 600; }
+button.primary:hover { background: var(--brand-dark); }
+button:disabled { opacity: .55; cursor: not-allowed; }
+
+input, select, textarea {
+  font: inherit; padding: 10px; border: 1px solid var(--line); border-radius: 8px;
+  width: 100%; background: #fff; color: var(--ink);
+}
+input:focus, select:focus, textarea:focus { outline: 2px solid var(--brand); outline-offset: 1px; }
+label { display: block; font-size: .85rem; color: var(--muted); margin-bottom: 12px; font-weight: 500; }
+label input, label select, label textarea { margin-top: 5px; }
+
+#q { margin-bottom: 18px; max-width: 420px; }
+
+/* ---------- Job cards ---------- */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 16px; }
+.card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 18px; box-shadow: var(--shadow); display: flex; flex-direction: column;
+}
+.card h3 { margin: 0 0 6px; font-size: 1.08rem; }
+.muted { color: var(--muted); font-size: .87rem; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.chip {
+  display: inline-block; font-size: .76rem; font-weight: 600; padding: 3px 9px;
+  border-radius: 99px; background: #eef2f7; color: #45566b;
+}
+.chip.shift { background: #e6f0fb; color: var(--brand-dark); }
+.salary { margin: 10px 0 4px; }
+.salary .amount { font-size: 1.15rem; font-weight: 800; color: var(--ok); }
+.salary .hourly { display: block; font-size: .78rem; color: var(--muted); margin-top: 2px; }
+.card p.desc { margin: 6px 0 4px; font-size: .92rem; flex: 1; }
+.card .row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+
+/* ---------- Badges (status) ---------- */
+.badge { display: inline-block; padding: 3px 10px; border-radius: 99px; font-size: .76rem; font-weight: 700; background: #eef2f7; color: #45566b; }
+.badge.applied { background: var(--warn-bg); color: var(--warn); }
+.badge.practical_test, .badge.medical_check { background: #e6f0fb; color: var(--brand-dark); }
+.badge.hired { background: var(--ok-bg); color: var(--ok); }
+.badge.rejected { background: var(--bad-bg); color: var(--bad); }
+
+/* ---------- Toolbar (HR dashboard) ---------- */
+.toolbar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+.toolbar h1 { margin: 0; }
+.toolbar select { width: auto; min-width: 170px; }
+
+/* ---------- Table: responsive, stacks into cards on small screens ---------- */
+table.stack { width: 100%; border-collapse: collapse; background: var(--surface); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+table.stack th, table.stack td { padding: 12px; text-align: left; border-bottom: 1px solid var(--line); font-size: .9rem; vertical-align: top; }
+table.stack thead th { background: #f8fafc; font-size: .78rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+table.stack tbody tr:hover { background: #fafcff; }
+table.stack select { width: auto; min-width: 160px; }
+
+.err { color: var(--bad); font-size: .88rem; min-height: 1.1em; }
+
+/* ---------- Modal ---------- */
+dialog { border: 0; border-radius: var(--radius); padding: 22px; width: min(420px, 92vw); box-shadow: 0 10px 40px rgba(0,0,0,.25); }
+dialog::backdrop { background: rgba(10, 16, 25, .55); }
+dialog h2 { margin-top: 0; font-size: 1.15rem; }
+dialog .row { display: flex; gap: 10px; margin-top: 6px; }
+dialog .row button { flex: 1; }
+
+/* ---------- Toast ---------- */
+#toast {
+  position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%);
+  background: #101a26; color: #fff; padding: 11px 20px; border-radius: 8px;
+  font-size: .9rem; opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s;
+  max-width: 90vw; text-align: center; z-index: 50;
+}
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(-4px); }
+#toast.bad { background: var(--bad); }
+
+main > form.card { padding: 22px; }
+main > form.card button[type="submit"] { margin-top: 6px; }
+table.stack td a { color: var(--brand); font-size: .85rem; font-weight: 600; }
+input[type="file"] { padding: 8px; background: #fafbfc; }
+
+/* ---------- Tabs (HR dashboard) ---------- */
+.tabs { display: flex; gap: 8px; margin-bottom: 18px; border-bottom: 1px solid var(--line); }
+.tab-btn {
+  background: none; border: 0; border-bottom: 3px solid transparent;
+  padding: 10px 4px; margin-bottom: -1px; font-weight: 600; color: var(--muted); border-radius: 0;
+}
+.tab-btn.on { color: var(--brand-dark); border-bottom-color: var(--brand); }
+.tab-btn:hover { color: var(--brand-dark); }
+
+.badge.off { background: #eee; color: #6b7785; }
+.badge.ai-green { background: var(--ok-bg); color: var(--ok); }
+.badge.ai-yellow { background: var(--warn-bg); color: var(--warn); }
+.badge.ai-red { background: var(--bad-bg); color: var(--bad); }
+#ai-modal { width: min(520px, 92vw); }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
+details.card summary { cursor: pointer; font-weight: 700; list-style: none; }
+details.card summary::-webkit-details-marker { display: none; }
+details.card { margin-bottom: 20px; }
+
+@media (max-width: 560px) {
+  .cols { grid-template-columns: 1fr; }
+}
+
+/* ---------- Mobile-first responsive table ---------- */
+@media (max-width: 640px) {
+  header.top { padding: 12px 14px; }
+  main { padding: 14px 12px 40px; }
+  table.stack thead { display: none; }
+  table.stack, table.stack tbody, table.stack tr, table.stack td { display: block; width: 100%; }
+  table.stack tr { border-bottom: 8px solid var(--bg); padding: 4px 0; }
+  table.stack td {
+    border: 0; padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; gap: 10px;
+  }
+  table.stack td::before {
+    content: attr(data-label); font-weight: 700; color: var(--muted); font-size: .74rem;
+    text-transform: uppercase; letter-spacing: .03em; flex: 0 0 40%;
+  }
+  table.stack td select { max-width: 60%; }
+}
+
+@media (max-width: 420px) {
+  .grid { grid-template-columns: 1fr; }
+}
